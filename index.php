@@ -21,8 +21,8 @@ $produits = $stmt->fetchAll();
             <?php foreach ($produits as $produit): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="images/
-                        <?php echo $produit['image']; ?>" class="card-img-top" alt="<?php echo $produit['nom']; ?>">
+                        <!-- Affichage de l'image du produit -->
+                        <img src="images/<?php echo $produit['image']; ?>" class="card-img-top" alt="<?php echo $produit['nom']; ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $produit['nom']; ?></h5>
                             <p class="card-text"><?php echo $produit['description']; ?></p>

@@ -32,7 +32,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <!-- Affichage de l'image du produit -->
-                        <img src="images/<?php echo $produit['image']; ?>" alt="<?php echo $produit['nom']; ?>" class="img-fluid">
+                        <img src="images/<?php echo $produit['image']; ?>" alt="<?php echo $produit['nom']; ?>">
+                        
+
+
                     </div>
                     <div class="col-md-6">
                         <!-- Informations sur le produit -->
