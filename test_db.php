@@ -7,4 +7,3 @@ $count = $stmt->fetchColumn();
 
 echo "La base de données est bien connectée ! Nombre de produits : " . $count;
 ?>
-p

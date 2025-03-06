@@ -1,12 +1,19 @@
 <?php
-require_once('config.php'); 
+require_once('config.php');
 
-// Récupérer tous les produits depuis la base de données
-$query = "SELECT * FROM produits";
-$stmt = $pdo->prepare($query);
-$stmt->execute();
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $categorie_id = $_GET['id'];
 
-$produits = $stmt->fetchAll();
+    $query = "SELECT * FROM produits WHERE categorie_id = :categorie_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':categorie_id', $categorie_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $produits = $stmt->fetchAll();
+} else {
+    echo "<p>Catégorie non spécifiée.</p>";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,14 +21,12 @@ $produits = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produits</title>
+    <title>Produits de la Catégorie</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
     <div class="container mt-5">
-        <h1>Liste des Produits</h1>
-        
+        <h1>Produits de la Catégorie</h1>
         <?php if ($produits): ?>
             <div class="row">
                 <?php foreach ($produits as $produit): ?>
@@ -32,14 +37,14 @@ $produits = $stmt->fetchAll();
                                 <h5 class="card-title"><?php echo $produit['nom']; ?></h5>
                                 <p class="card-text"><?php echo $produit['description']; ?></p>
                                 <p><strong>Prix:</strong> €<?php echo number_format($produit['prix'], 2, ',', ' '); ?></p>
-                                
+                                <a href="produit.php?id=<?php echo $produit['id']; ?>" class="btn btn-primary">Voir Détails</a>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <p>Aucun produit disponible.</p>
+            <p>Aucun produit trouvé dans cette catégorie.</p>
         <?php endif; ?>
     </div>
 </body>
